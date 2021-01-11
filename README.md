@@ -1,0 +1,1 @@
+#  @ldziewa/cqrs-module
