@@ -1,6 +1,6 @@
 {
   "name": "@ldziewa/cqrs-module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "command bus & query bus & event bus",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
