@@ -9,6 +9,7 @@ export * from './command/bus/CommandBus';
 export * from './command/handler/ICommandHandler';
 export * from './command/handler/CommandHandler';
 export * from './command/exception/CommandHandlerNotFoundException';
+export * from './command/util/sequelize/Sequelize';
 
 export * from './query/IQuery';
 export * from './query/bus/IQueryBus';
