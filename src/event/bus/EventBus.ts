@@ -7,7 +7,7 @@ import EventHandlerNotFoundException from '../exception/EventHandlerNotFoundExce
 
 export default class EventBus implements IEventBus {
 
-    #_container: IContainer;
+    readonly #_container: IContainer;
 
     constructor(container: IContainer) {
         this.#_container = container;
@@ -21,7 +21,7 @@ export default class EventBus implements IEventBus {
         return handler.handle(event);
     }
 
-    #_reflectHandlerName = (eventName: string): string => {
+    readonly #_reflectHandlerName = (eventName: string): string => {
         const event = events.get(eventName)
 
         if (event) {
@@ -31,6 +31,6 @@ export default class EventBus implements IEventBus {
         throw new EventHandlerNotFoundException(eventName);
     };
 
-    #_getHandler = <R>(handler: string): IEventHandler<IEvent, R> => this.#_container.get(handler);
+    readonly #_getHandler = <R>(handler: string): IEventHandler<IEvent, R> => this.#_container.get(handler);
 
 }

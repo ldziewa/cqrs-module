@@ -52,11 +52,11 @@ const annotate = (target: any, options: ITransactionOptions | null = null): void
     const originalHandler = target.prototype.handle;
     if (options) {
         target.prototype.handle = async function (command: ICommand) {
-            await conn?.transaction(options, async () => { await originalHandler(command); });
+            await conn?.transaction(options, async () => { await originalHandler.apply(this, [command]); });
         };
     } else {
         target.prototype.handle = async function (command: ICommand) {
-            await conn?.transaction(async () => { await originalHandler(command); });
+            await conn?.transaction(async () => { await originalHandler.apply(this, [command]); });
         };
     }
 };

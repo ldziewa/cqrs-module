@@ -7,7 +7,7 @@ import ICommandBus from './ICommandBus';
 
 export default class CommandBus implements ICommandBus {
 
-    #_container: IContainer;
+    readonly #_container: IContainer;
 
     constructor(container: IContainer) {
         this.#_container = container;
@@ -21,7 +21,7 @@ export default class CommandBus implements ICommandBus {
         await handler.handle(command);
     }
 
-    #_reflectHandlerName = (commandName: string): string => {
+    readonly #_reflectHandlerName = (commandName: string): string => {
         const command = commands.get(commandName);
 
         if (command) {
@@ -31,6 +31,6 @@ export default class CommandBus implements ICommandBus {
         throw new CommandHandlerNotFoundException(commandName);
     }
 
-    #_getHandler = (handler: string): ICommandHandler<ICommand> => this.#_container.get(handler);
+    readonly #_getHandler = (handler: string): ICommandHandler<ICommand> => this.#_container.get(handler);
 
 }

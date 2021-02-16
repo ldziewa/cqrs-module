@@ -7,7 +7,7 @@ import QueryHandlerNotFoundException from '../exception/QueryHandlerNotFoundExce
 
 export default class QueryBus implements IQueryBus {
 
-    #_container: IContainer;
+    readonly #_container: IContainer;
 
     constructor(container: IContainer) {
         this.#_container = container;
@@ -21,16 +21,16 @@ export default class QueryBus implements IQueryBus {
         return handler.handle(query);
     }
 
-    #_reflectHandlerName = (queryName: string): string => {
+    readonly #_reflectHandlerName = (queryName: string): string => {
         const query = queries.get(queryName);
 
         if (query) {
-            return query
+            return query;
         }
 
-        throw new QueryHandlerNotFoundException(queryName)
+        throw new QueryHandlerNotFoundException(queryName);
     }
 
-    #_getHandler = <R>(handler: string): IQueryHandler<IQuery, R> => this.#_container.get(handler);
+    readonly #_getHandler = <R>(handler: string): IQueryHandler<IQuery, R> => this.#_container.get(handler);
 
 }
