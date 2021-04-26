@@ -13,24 +13,23 @@ export default class EventBus implements IEventBus {
         this.#_container = container;
     }
 
-    public async handle<R>(event: IEvent): Promise<R> {
+    public async publish(event: IEvent): Promise<void[]> {
         const eventName = event.constructor.name;
-        const handlerName = this.#_reflectHandlerName(eventName);
-        const handler: IEventHandler<IEvent, R> = this.#_getHandler(handlerName);
+        const handlersNames = this.#_reflectHandlersNames(eventName);
 
-        return handler.handle(event);
+        return Promise.all(handlersNames.map(handlerName => this.#_getHandler(handlerName).handle(event)));
     }
 
-    readonly #_reflectHandlerName = (eventName: string): string => {
-        const event = events.get(eventName)
+    readonly #_reflectHandlersNames = (eventName: string): string[] => {
+        const handlers = events.get(eventName);
 
-        if (event) {
-            return event;
+        if (handlers) {
+            return handlers;
         }
 
         throw new EventHandlerNotFoundException(eventName);
     };
 
-    readonly #_getHandler = <R>(handler: string): IEventHandler<IEvent, R> => this.#_container.get(handler);
+    readonly #_getHandler = (handler: string): IEventHandler<IEvent> => this.#_container.get(handler);
 
 }

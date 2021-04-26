@@ -19,6 +19,8 @@ export * from './query/handler/QueryHandler';
 export * from './query/exception/QueryHandlerNotFoundException';
 
 export * from './event/IEvent';
+export * from './event/IDomainEvent';
+export * from './event/IAggregateId';
 export * from './event/bus/IEventBus';
 export * from './event/bus/EventBus';
 export * from './event/handler/IEventHandler';

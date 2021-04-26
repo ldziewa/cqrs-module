@@ -1,7 +1,8 @@
 import IEvent from '../IEvent';
+import IDomainEvent from '../IDomainEvent';
 
 export default interface IEventBus {
 
-    handle<R>(event: IEvent): Promise<R>;
+    publish(event: IEvent | IDomainEvent): Promise<void[]>;
 
 }
